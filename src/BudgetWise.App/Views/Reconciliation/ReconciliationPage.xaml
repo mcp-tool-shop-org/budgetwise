@@ -6,8 +6,12 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Grid Padding="24" RowDefinitions="Auto,Auto,Auto,*" RowSpacing="12">
-        <TextBlock Text="Reconcile" FontSize="28" FontWeight="SemiBold" />
+    <Grid Padding="24" RowDefinitions="Auto,Auto,Auto,Auto,*" RowSpacing="12" MaxWidth="1200" HorizontalAlignment="Left">
+        <StackPanel Spacing="4">
+            <TextBlock Text="Reconcile" FontSize="28" FontWeight="SemiBold" />
+            <TextBlock Text="Confirm your account matches your bank statement. Select cleared transactions and enter your statement balance."
+                       FontSize="13" Opacity="0.7" TextWrapping="Wrap" />
+        </StackPanel>
 
         <InfoBar Grid.Row="1"
             IsOpen="True"
@@ -17,37 +21,43 @@
             Message="Starter data should be created on first launch. If this still shows, restart the app or open Diagnostics."
             Visibility="{Binding Accounts, Converter={StaticResource CollectionEmptyToVisibilityConverter}}" />
 
-        <StackPanel Grid.Row="1" Orientation="Horizontal" Spacing="12" Margin="0,48,0,0">
+        <StackPanel Grid.Row="2" Orientation="Horizontal" Spacing="12">
             <ComboBox Width="260"
                       ItemsSource="{Binding Accounts}"
                       SelectedItem="{Binding SelectedAccount, Mode=TwoWay}"
                       DisplayMemberPath="Name"
-                      PlaceholderText="Select account" />
+                      PlaceholderText="Select account"
+                      ToolTipService.ToolTip="Choose the account you want to reconcile." />
 
-            <DatePicker Date="{Binding StatementDate, Mode=TwoWay}" />
+            <DatePicker Date="{Binding StatementDate, Mode=TwoWay}"
+                        ToolTipService.ToolTip="The date on your bank statement." />
 
             <TextBox Width="180"
                      Header="Statement ending balance"
-                     Text="{Binding StatementEndingBalanceText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                     Text="{Binding StatementEndingBalanceText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                     ToolTipService.ToolTip="The final balance shown on your bank statement." />
 
             <CheckBox Content="Create adjustment"
                       VerticalAlignment="Bottom"
-                      ToolTipService.ToolTip="If needed, creates a balancing adjustment transaction so the account matches the statement."
+                      ToolTipService.ToolTip="If the totals don't match, create an adjustment transaction to balance the difference."
                       IsChecked="{Binding CreateAdjustmentIfNeeded, Mode=TwoWay}" />
 
-                <Button Content="Reconcile"
+            <Button Content="Reconcile"
                     VerticalAlignment="Bottom"
-                    Click="Reconcile_Click" />
+                    Click="Reconcile_Click"
+                    ToolTipService.ToolTip="Mark selected transactions as reconciled if totals match." />
         </StackPanel>
 
-        <StackPanel Grid.Row="2" Orientation="Horizontal" Spacing="8">
-            <TextBlock Text="{Binding StatementYearMonthText}" Opacity="0.8" />
+        <StackPanel Grid.Row="3" Orientation="Horizontal" Spacing="8">
+            <TextBlock Text="{Binding StatementYearMonthText}" Opacity="0.8" VerticalAlignment="Center" />
             <Button Content="Refresh" Command="{Binding RefreshCommand}" />
-            <Button Content="Select all" Command="{Binding SelectAllCommand}" />
-            <Button Content="Select none" Command="{Binding SelectNoneCommand}" />
+            <Button Content="Select all" Command="{Binding SelectAllCommand}"
+                    ToolTipService.ToolTip="Select all transactions for reconciliation." />
+            <Button Content="Select none" Command="{Binding SelectNoneCommand}"
+                    ToolTipService.ToolTip="Deselect all transactions." />
         </StackPanel>
 
-        <StackPanel Grid.Row="3" Spacing="8">
+        <StackPanel Grid.Row="4" Spacing="8">
             <ProgressBar IsIndeterminate="True"
                          Visibility="{Binding IsLoading, Converter={StaticResource BoolToVisibilityConverter}}" />
 

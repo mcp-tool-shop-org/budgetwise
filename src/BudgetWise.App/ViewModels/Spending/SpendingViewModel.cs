@@ -39,6 +39,23 @@ public sealed partial class SpendingViewModel : ObservableObject
 
     public string YearMonthText => $"{Year:D4}-{Month:D2}";
 
+    public bool HasOverspentEnvelopes => Rows.Any(r => r.IsOverspent);
+
+    public int OverspentCount => Rows.Count(r => r.IsOverspent);
+
+    public string OverspentSummary
+    {
+        get
+        {
+            var count = OverspentCount;
+            if (count == 0)
+                return string.Empty;
+            return count == 1
+                ? "1 envelope is overspent. Go to Budget to add more funds."
+                : $"{count} envelopes are overspent. Go to Budget to add more funds.";
+        }
+    }
+
     [RelayCommand]
     private Task RefreshAsync() => LoadAsync(userInitiated: true);
 
@@ -68,17 +85,24 @@ public sealed partial class SpendingViewModel : ObservableObject
                     var spent = e.Spent.Abs();
                     var percent = maxSpent == 0m ? 0d : (double)(spent.Amount / maxSpent * 100m);
 
+                    var overspentAmount = e.IsOverspent ? e.Available.Abs() : BudgetWise.Domain.ValueObjects.Money.Zero;
+                    var overspentHint = e.IsOverspent ? $"{overspentAmount.ToFormattedString()} over budget" : string.Empty;
+
                     return new SpendingRow(
                         Name: e.Name,
                         GroupName: e.GroupName,
                         SpentText: spent.ToFormattedString(),
                         AvailableText: e.Available.ToFormattedString(),
                         IsOverspent: e.IsOverspent,
+                        OverspentHint: overspentHint,
                         SpentPercent: percent);
                 })
                 .ToArray();
 
             OnPropertyChanged(nameof(YearMonthText));
+            OnPropertyChanged(nameof(HasOverspentEnvelopes));
+            OnPropertyChanged(nameof(OverspentCount));
+            OnPropertyChanged(nameof(OverspentSummary));
         }
         catch (Exception)
         {
@@ -104,5 +128,6 @@ public sealed partial class SpendingViewModel : ObservableObject
         string SpentText,
         string AvailableText,
         bool IsOverspent,
+        string OverspentHint,
         double SpentPercent);
 }

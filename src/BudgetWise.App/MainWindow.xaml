@@ -29,8 +29,11 @@
                 <NavigationViewItem Content="Import" Tag="import" Icon="Upload" />
                 <NavigationViewItem Content="Spending" Tag="spending" Icon="Calculator" />
                 <NavigationViewItem Content="Reconcile" Tag="reconcile" Icon="Sync" />
-                <NavigationViewItem Content="Diagnostics" Tag="diagnostics" Icon="ReportDocument" />
             </NavigationView.MenuItems>
+            <NavigationView.FooterMenuItems>
+                <NavigationViewItem Content="Help" Tag="help" Icon="Help" />
+                <NavigationViewItem Content="Diagnostics" Tag="diagnostics" Icon="Repair" />
+            </NavigationView.FooterMenuItems>
 
             <Frame x:Name="RootFrame" />
         </NavigationView>

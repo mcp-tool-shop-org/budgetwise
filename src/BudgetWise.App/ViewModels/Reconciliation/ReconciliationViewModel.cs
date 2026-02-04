@@ -145,8 +145,17 @@ public sealed partial class ReconciliationViewModel : ObservableObject
                 return;
             }
 
-            ResultText = $"Cleared: {payload.ClearedBalance.ToFormattedString()}  Difference: {payload.Difference.ToFormattedString()}";
-            _notifications.ShowSuccess("Reconciled", ResultText);
+            // Celebratory success message to confirm trust
+            if (payload.Difference.IsZero)
+            {
+                ResultText = $"✓ Your account now matches your bank statement. Cleared balance: {payload.ClearedBalance.ToFormattedString()}";
+                _notifications.ShowSuccess("Account reconciled!", "Your account now matches your bank statement.", TimeSpan.FromSeconds(5));
+            }
+            else
+            {
+                ResultText = $"✓ Reconciled with adjustment. Cleared: {payload.ClearedBalance.ToFormattedString()}, Adjustment: {payload.Difference.ToFormattedString()}";
+                _notifications.ShowSuccess("Account reconciled with adjustment", $"A {payload.Difference.ToFormattedString()} adjustment was created to match your statement.", TimeSpan.FromSeconds(6));
+            }
 
             await LoadAccountsAsync(selectAccountId: SelectedAccount.Id);
             await LoadTransactionsAsync(userInitiated: false);

@@ -6,7 +6,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Grid Padding="24" RowDefinitions="Auto,Auto,Auto,*" RowSpacing="12">
+    <Grid Padding="24" RowDefinitions="Auto,Auto,Auto,*" RowSpacing="12" MaxWidth="1200" HorizontalAlignment="Left">
         <TextBlock Text="Transactions" FontSize="28" FontWeight="SemiBold" />
 
         <StackPanel Grid.Row="1" Orientation="Horizontal" Spacing="8">
@@ -88,13 +88,13 @@
                     Message="Add a transaction above, or import a CSV to get started."
                     Visibility="{Binding Transactions, Converter={StaticResource CollectionEmptyToVisibilityConverter}}" />
 
-            <Grid ColumnDefinitions="110,*,160,130,40" ColumnSpacing="12" Padding="4" Opacity="0.8"
+            <Grid ColumnDefinitions="110,*,160,130,70" ColumnSpacing="12" Padding="4" Opacity="0.8"
                   Visibility="{Binding Transactions, Converter={StaticResource CollectionNotEmptyToVisibilityConverter}}">
                 <TextBlock Text="Date" FontWeight="SemiBold" />
                 <TextBlock Grid.Column="1" Text="Payee" FontWeight="SemiBold" />
                 <TextBlock Grid.Column="2" Text="Envelope" FontWeight="SemiBold" />
                 <TextBlock Grid.Column="3" Text="Amount" FontWeight="SemiBold" HorizontalAlignment="Right" />
-                <TextBlock Grid.Column="4" Text="C" FontWeight="SemiBold" HorizontalAlignment="Center" ToolTipService.ToolTip="Cleared" />
+                <TextBlock Grid.Column="4" Text="Status" FontWeight="SemiBold" HorizontalAlignment="Center" ToolTipService.ToolTip="Cleared / Reconciled / Split / Transfer" />
             </Grid>
 
             <ListView ItemsSource="{Binding Transactions}"
@@ -102,15 +102,35 @@
                       SelectedItem="{Binding SelectedTransaction, Mode=TwoWay}">
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <Grid ColumnDefinitions="110,*,160,130,40" ColumnSpacing="12" Padding="4">
+                        <Grid ColumnDefinitions="110,*,160,130,70" ColumnSpacing="12" Padding="4">
                             <TextBlock Text="{Binding Date, Converter={StaticResource DateOnlyToIsoStringConverter}}" FontFamily="Consolas" />
-                            <TextBlock Grid.Column="1" Text="{Binding Payee}" TextTrimming="CharacterEllipsis" />
+                            <!-- Payee with type indicators -->
+                            <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="6">
+                                <TextBlock Text="{Binding Payee}" TextTrimming="CharacterEllipsis" VerticalAlignment="Center" />
+                                <!-- Split badge -->
+                                <Border Background="{ThemeResource AccentFillColorDefaultBrush}" CornerRadius="3" Padding="4,1"
+                                        Visibility="{Binding HasSplits, Converter={StaticResource BoolToVisibilityConverter}}"
+                                        ToolTipService.ToolTip="Split transaction (multiple envelopes)">
+                                    <TextBlock Text="SPLIT" FontSize="10" FontWeight="SemiBold" Foreground="White" />
+                                </Border>
+                                <!-- Transfer icon -->
+                                <FontIcon Glyph="&#xE8AB;" FontSize="12" Opacity="0.7"
+                                          Visibility="{Binding IsTransfer, Converter={StaticResource BoolToVisibilityConverter}}"
+                                          ToolTipService.ToolTip="Transfer between accounts" />
+                            </StackPanel>
                             <TextBlock Grid.Column="2" Text="{Binding EnvelopeName}" TextTrimming="CharacterEllipsis" />
                             <TextBlock Grid.Column="3" Text="{Binding Amount, Converter={StaticResource MoneyToFormattedStringConverter}}" HorizontalAlignment="Right" />
-                            <SymbolIcon Grid.Column="4" Symbol="Accept" HorizontalAlignment="Center" Opacity="0.7"
-                                        Visibility="{Binding IsCleared, Converter={StaticResource BoolToVisibilityConverter}}"
-                                        ToolTipService.ToolTip="Cleared"
-                                        AutomationProperties.Name="Cleared" />
+                            <!-- Status icons: Cleared, Reconciled -->
+                            <StackPanel Grid.Column="4" Orientation="Horizontal" Spacing="4" HorizontalAlignment="Center">
+                                <SymbolIcon Symbol="Accept" Opacity="0.7"
+                                            Visibility="{Binding IsCleared, Converter={StaticResource BoolToVisibilityConverter}}"
+                                            ToolTipService.ToolTip="Cleared"
+                                            AutomationProperties.Name="Cleared" />
+                                <FontIcon Glyph="&#xE72E;" FontSize="14" Opacity="0.7"
+                                          Visibility="{Binding IsReconciled, Converter={StaticResource BoolToVisibilityConverter}}"
+                                          ToolTipService.ToolTip="Reconciled (locked)"
+                                          AutomationProperties.Name="Reconciled" />
+                            </StackPanel>
                         </Grid>
                     </DataTemplate>
                 </ListView.ItemTemplate>

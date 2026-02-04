@@ -121,6 +121,12 @@ public sealed class BudgetPeriodRepository : BaseRepository<BudgetPeriod>, IBudg
 
     public async Task<BudgetPeriod> GetOrCreateAsync(int year, int month, CancellationToken ct = default)
     {
+        // Validate month bounds to fail fast with a clear message
+        if (month < 1 || month > 12)
+            throw new ArgumentOutOfRangeException(nameof(month), month, "Month must be between 1 and 12.");
+        if (year < 1900 || year > 2100)
+            throw new ArgumentOutOfRangeException(nameof(year), year, "Year must be reasonable (1900-2100).");
+
         var existing = await GetByYearMonthAsync(year, month, ct);
         if (existing is not null)
             return existing;

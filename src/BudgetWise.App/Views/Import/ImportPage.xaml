@@ -6,7 +6,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Grid Padding="24" RowDefinitions="Auto,Auto,Auto,*,Auto" RowSpacing="12">
+    <Grid Padding="24" RowDefinitions="Auto,Auto,Auto,*,Auto" RowSpacing="12" MaxWidth="1200" HorizontalAlignment="Left">
         <TextBlock Text="Import (CSV)" FontSize="28" FontWeight="SemiBold" />
 
         <InfoBar Grid.Row="1"
@@ -30,13 +30,18 @@
                       ItemsSource="{Binding Accounts}"
                       SelectedItem="{Binding SelectedAccount, Mode=TwoWay}"
                       DisplayMemberPath="Name"
-                      PlaceholderText="Select account" />
+                      PlaceholderText="Select account"
+                      ToolTipService.ToolTip="The account these transactions belong to." />
 
-            <CheckBox Content="Has header row" IsChecked="{Binding HasHeaderRow, Mode=TwoWay}" />
+            <CheckBox Content="Has header row" IsChecked="{Binding HasHeaderRow, Mode=TwoWay}"
+                      ToolTipService.ToolTip="Check if your CSV's first row contains column names like Date, Payee, Amount." />
 
-            <Button Content="Pick CSV…" Click="PickCsv_Click" />
-            <Button Content="Preview" Command="{Binding PreviewCommand}" />
-            <Button Content="Import selected" Click="ImportSelected_Click" />
+            <Button Content="Pick CSV…" Click="PickCsv_Click"
+                    ToolTipService.ToolTip="Open a file picker to load a CSV file from your computer." />
+            <Button Content="Preview" Command="{Binding PreviewCommand}"
+                    ToolTipService.ToolTip="Parse the CSV and show what will be imported. Duplicates are automatically detected." />
+            <Button Content="Import selected" Click="ImportSelected_Click"
+                    ToolTipService.ToolTip="Add the selected rows to your account. Only 'New' rows will be imported." />
         </StackPanel>
 
         <StackPanel Grid.Row="2" Spacing="8">
@@ -61,8 +66,10 @@
                        Visibility="{Binding ResultText, Converter={StaticResource StringToVisibilityConverter}}" />
 
             <StackPanel Orientation="Horizontal" Spacing="8">
-                <Button Content="Select new" Command="{Binding SelectAllNewCommand}" />
-                <Button Content="Select none" Command="{Binding SelectNoneCommand}" />
+                <Button Content="Select new" Command="{Binding SelectAllNewCommand}"
+                        ToolTipService.ToolTip="Select only transactions that aren't already in your account." />
+                <Button Content="Select none" Command="{Binding SelectNoneCommand}"
+                        ToolTipService.ToolTip="Deselect all rows." />
             </StackPanel>
 
             <ListView ItemsSource="{Binding Rows}">

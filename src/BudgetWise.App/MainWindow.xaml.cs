@@ -3,6 +3,7 @@ using BudgetWise.App.Services.Notifications;
 using BudgetWise.App.Services;
 using BudgetWise.App.Views;
 using BudgetWise.App.Views.Diagnostics;
+using BudgetWise.App.Views.Help;
 using BudgetWise.App.Views.Import;
 using BudgetWise.App.Views.Reconciliation;
 using BudgetWise.App.Views.Spending;
@@ -193,6 +194,10 @@ public sealed partial class MainWindow : Window
             .OfType<NavigationViewItem>()
             .FirstOrDefault(i => string.Equals(i.Tag as string, tag, StringComparison.Ordinal));
 
+        item ??= Nav.FooterMenuItems
+            .OfType<NavigationViewItem>()
+            .FirstOrDefault(i => string.Equals(i.Tag as string, tag, StringComparison.Ordinal));
+
         if (item is not null)
             Nav.SelectedItem = item;
         else
@@ -280,6 +285,9 @@ public sealed partial class MainWindow : Window
                 break;
             case "reconcile":
                 RootFrame.Navigate(typeof(ReconciliationPage));
+                break;
+            case "help":
+                RootFrame.Navigate(typeof(HelpPage));
                 break;
             case "diagnostics":
                 RootFrame.Navigate(typeof(DiagnosticsPage));
