@@ -10,6 +10,19 @@
     <UseWinUI>true</UseWinUI>
     <WindowsPackageType>None</WindowsPackageType>
     <ApplicationManifest>app.manifest</ApplicationManifest>
+    <ApplicationIcon>BudgetWise.ico</ApplicationIcon>
+
+    <!-- App metadata -->
+    <Version>1.0.0</Version>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+    <FileVersion>1.0.0.0</FileVersion>
+    <Product>BudgetWise</Product>
+    <Company>mcp-tool-shop</Company>
+    <Authors>mcp-tool-shop</Authors>
+    <Description>Envelope budgeting for Windows - give every dollar a job</Description>
+    <Copyright>Copyright (c) 2025 mcp-tool-shop</Copyright>
+    <RepositoryUrl>https://github.com/mcp-tool-shop-org/budget-wise</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
 
     <!-- Ensure Microsoft.Windows.SDK.NET.Ref is restored for WinUI builds -->
     <WindowsSdkPackageVersion>10.0.22621.38</WindowsSdkPackageVersion>

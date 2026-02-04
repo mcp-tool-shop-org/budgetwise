@@ -3,6 +3,7 @@ using BudgetWise.App.Services.Notifications;
 using BudgetWise.App.Services;
 using BudgetWise.App.Views;
 using BudgetWise.App.Views.Diagnostics;
+using BudgetWise.App.Views.About;
 using BudgetWise.App.Views.Help;
 using BudgetWise.App.Views.Import;
 using BudgetWise.App.Views.Reconciliation;
@@ -308,6 +309,9 @@ public sealed partial class MainWindow : Window
                 break;
             case "help":
                 RootFrame.Navigate(typeof(HelpPage));
+                break;
+            case "about":
+                RootFrame.Navigate(typeof(AboutPage));
                 break;
             case "diagnostics":
                 RootFrame.Navigate(typeof(DiagnosticsPage));

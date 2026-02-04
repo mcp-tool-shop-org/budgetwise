@@ -32,6 +32,11 @@
             </NavigationView.MenuItems>
             <NavigationView.FooterMenuItems>
                 <NavigationViewItem Content="Help" Tag="help" Icon="Help" />
+                <NavigationViewItem Content="About" Tag="about">
+                    <NavigationViewItem.Icon>
+                        <FontIcon Glyph="&#xE946;" />
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
                 <NavigationViewItem Content="Diagnostics" Tag="diagnostics" Icon="Repair" />
             </NavigationView.FooterMenuItems>
 

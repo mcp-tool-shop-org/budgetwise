@@ -1,32 +1,42 @@
 # BudgetWise
 
-A Windows-first personal finance app using envelope budgeting methodology.
+<p align="center">
+  <img src="src/BudgetWise.App/Assets/BudgetWise_256.png" alt="BudgetWise Icon" width="128" height="128">
+</p>
+
+**Envelope budgeting for Windows — give every dollar a job.**
+
+A Windows-first personal finance app using envelope budgeting methodology. Your data stays local, no cloud required.
+
+## Download
+
+📦 **[Latest Release](https://github.com/mcp-tool-shop-org/budget-wise/releases/latest)**
+
+Download the ZIP, extract, and run `BudgetWise.App.exe`. No installation required.
 
 ## What is Envelope Budgeting?
 
 Envelope budgeting is a simple, proven method where you allocate your income into virtual "envelopes" for different spending categories. You can only spend what's in each envelope, making overspending impossible.
 
-## Planning
-
-- Phase 3 checklist: [PHASE3_CHECKLIST.md](PHASE3_CHECKLIST.md)
-- Phase 4 checklist: [PHASE4_CHECKLIST.md](PHASE4_CHECKLIST.md)
-- Phase 5 checklist: [PHASE5_CHECKLIST.md](PHASE5_CHECKLIST.md)
-- Phase 12 audit (RC discipline): [docs/PHASE12_AUDIT.md](docs/PHASE12_AUDIT.md)
-- Phase 12 checklist: [docs/PHASE12_CHECKLIST.md](docs/PHASE12_CHECKLIST.md)
-- RC discipline checklist: [docs/RC_DISCIPLINE_CHECKLIST.md](docs/RC_DISCIPLINE_CHECKLIST.md)
-- Release process: [docs/RELEASE_PROCESS.md](docs/RELEASE_PROCESS.md)
-- Verify a release: [docs/VERIFY_RELEASE.md](docs/VERIFY_RELEASE.md)
-- Changelog: [CHANGELOG.md](CHANGELOG.md)
-- Engine error codes catalog: [ENGINE_ERROR_CODES.md](ENGINE_ERROR_CODES.md)
-
-## Features (Planned)
+## Features
 
 - **Offline-First**: Your data stays on your machine. No cloud required.
 - **Envelope Budgeting**: Allocate every dollar to a purpose
 - **Multiple Accounts**: Track checking, savings, credit cards, cash
 - **Transaction Tracking**: Categorize and search your spending
-- **Visual Reports**: See where your money goes
+- **CSV Import**: Import bank statements easily
+- **Reconciliation**: Match your records with bank statements
 - **Windows Native**: Built with WinUI 3 for a modern Windows experience
+
+## Screenshots
+
+*Coming soon*
+
+## Documentation
+
+- [Changelog](CHANGELOG.md)
+- [Engine Error Codes](ENGINE_ERROR_CODES.md)
+- [Release Process](docs/RELEASE_PROCESS.md)
 
 ## Technology
 
@@ -37,11 +47,17 @@ Envelope budgeting is a simple, proven method where you allocate your income int
 
 ## Project Status
 
-**Phase 2**: Budget engine + deterministic core (complete)
+✅ **v1.0.0** - Ready for release
 
-**Phase 3**: UI foundation & engine integration (planned)
+Core functionality complete:
+- Budget management with monthly allocations
+- Transaction tracking with split support
+- CSV import from bank statements
+- Account reconciliation
+- Spending analysis by envelope
+- In-app help and guidance
 
-See [DESIGN.md](DESIGN.md) for detailed architecture and roadmap.
+See [DESIGN.md](DESIGN.md) for detailed architecture.
 
 ## Development
 

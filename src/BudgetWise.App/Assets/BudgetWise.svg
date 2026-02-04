@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#4CAF50"/>
+      <stop offset="100%" style="stop-color:#2E7D32"/>
+    </linearGradient>
+  </defs>
+  <!-- Background circle -->
+  <circle cx="128" cy="128" r="120" fill="url(#bg)"/>
+  <!-- Envelope shape (simplified) -->
+  <rect x="48" y="72" width="160" height="112" rx="8" fill="#FFFFFF" opacity="0.95"/>
+  <!-- Envelope flap -->
+  <path d="M48 80 L128 130 L208 80" stroke="#4CAF50" stroke-width="6" fill="none"/>
+  <!-- Dollar sign -->
+  <text x="128" y="160" font-family="Segoe UI, Arial, sans-serif" font-size="72" font-weight="bold" fill="#2E7D32" text-anchor="middle">$</text>
+  <!-- Small envelope lines for "budget rows" effect -->
+  <line x1="68" y1="145" x2="108" y2="145" stroke="#81C784" stroke-width="4" stroke-linecap="round"/>
+  <line x1="148" y1="145" x2="188" y2="145" stroke="#81C784" stroke-width="4" stroke-linecap="round"/>
+  <line x1="68" y1="162" x2="88" y2="162" stroke="#A5D6A7" stroke-width="3" stroke-linecap="round"/>
+  <line x1="168" y1="162" x2="188" y2="162" stroke="#A5D6A7" stroke-width="3" stroke-linecap="round"/>
+</svg>
